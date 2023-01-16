@@ -16,12 +16,12 @@ services:
         POSTGRES_USER: ${DATABASE_USERNAME}
         POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
   keycloak:
-      image: quay.io/keycloak/keycloak:17.0.1
-      # build: .
+      # image: quay.io/keycloak/keycloak:17.0.1
+      build: .
       env_file: .env
       container_name: idpkeycloak
-      volumes:
-        - idpTheme:/opt/jboss/keycloak/themes/idpTheme      
+      # volumes:
+      #   - ./idpTheme:/opt/jboss/keycloak/themes/idpTheme  
       environment:
         DB_VENDOR: POSTGRES
         DB_ADDR: postgres
@@ -31,9 +31,11 @@ services:
         DB_PASSWORD: ${DATABASE_PASSWORD}
         KEYCLOAK_USER: ${KEYCLOAK_USER}
         KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+        KEYCLOAK_ADMIN: ${KEYCLOAK_USER}
+        KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_PASSWORD}
         # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
         #JDBC_PARAMS: "ssl=true"
-      # command: start-dev
+      command: start-dev
       ports:
         - 8081:8080
       depends_on:
