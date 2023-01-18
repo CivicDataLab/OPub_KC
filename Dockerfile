@@ -5,7 +5,7 @@ ADD idpTheme /opt/keycloak/themes/idpTheme
 ADD keycloak-janparichay-idp-1.0.0-SNAPSHOT.jar /opt/keycloak/standalone/deployment/
 ADD keycloak-janparichay-idp-1.0.0-SNAPSHOT.jar /opt/keycloak/providers/
 
-RUN mkdir -p /opt/jboss/keycloak/providers
+# RUN mkdir -p /opt/jboss/keycloak/providers
 ADD idpTheme /opt/jboss/keycloak/themes/idpTheme
 ADD keycloak-janparichay-idp-1.0.0-SNAPSHOT.jar /opt/jboss/keycloak/standalone/deployment/
 ADD keycloak-janparichay-idp-1.0.0-SNAPSHOT.jar /opt/jboss/keycloak/providers/
