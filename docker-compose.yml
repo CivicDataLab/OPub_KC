@@ -1,16 +1,16 @@
 version: '3'
 
 volumes:
-  postgres_data:
+  kc_postgres_data:
       driver: local
 
 services:
-  postgres:
+  kc_postgres:
       image: postgres
       env_file: .env
       container_name: idpkeycloakdb
       volumes:
-        - postgres_data:/var/lib/postgresql/data
+        - kc_postgres_data:/var/lib/postgresql/data
       environment:
         POSTGRES_DB: ${DATABASE_NAME}
         POSTGRES_USER: ${DATABASE_USERNAME}
@@ -24,7 +24,7 @@ services:
       #   - ./idpTheme:/opt/jboss/keycloak/themes/idpTheme  
       environment:
         DB_VENDOR: POSTGRES
-        DB_ADDR: postgres
+        DB_ADDR: kc_postgres
         DB_DATABASE: ${DATABASE_NAME}
         DB_USER: ${DATABASE_USERNAME}
         DB_SCHEMA: public
@@ -33,10 +33,16 @@ services:
         KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
         KEYCLOAK_ADMIN: ${KEYCLOAK_USER}
         KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_PASSWORD}
+        KC_PROXY: edge
+        KC_HOSTNAME_STRICT: false
+        KC_HOSTNAME_STRICT_HTTPS: false
+        KC_HTTP_ENABLED: true
+        proxy-address-forwarding: true
+        ssl-required: none
         # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the PostgreSQL JDBC driver documentation in order to use it.
         #JDBC_PARAMS: "ssl=true"
-      command: start-dev
+      command: start-dev #--http-relative-path /auth
       ports:
-        - 8081:8080
+        - 8006:8080
       depends_on:
-        - postgres
+        - kc_postgres
