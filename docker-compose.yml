@@ -43,6 +43,6 @@ services:
         #JDBC_PARAMS: "ssl=true"
       command: start-dev #--http-relative-path /auth
       ports:
-        - 8006:8080
+        - 8004:8080
       depends_on:
         - kc_postgres
