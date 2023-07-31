@@ -15,5 +15,5 @@ ADD keycloak-janparichay-idp-1.0.0-SNAPSHOT.jar /opt/jboss/keycloak/providers/
 
 EXPOSE 8080
 
-CMD ["kc.sh", "start-dev"]
-#CMD ["start-dev", "--http-relative-path", "/auth"]
+#CMD ["kc.sh", "start-dev"]
+CMD ["start-dev", "--http-relative-path", "/auth"]
